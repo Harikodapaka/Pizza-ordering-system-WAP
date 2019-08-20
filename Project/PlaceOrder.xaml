@@ -1,0 +1,196 @@
+﻿<Page x:Class="Project.PlaceOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project"
+        xmlns:validators="clr-namespace:Project.Validators"
+        xmlns:dishes="clr-namespace:Project.Dishes"
+        mc:Ignorable="d"
+        Title="PlaceOrder" Height="450" Width="800">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+        <local:Customer x:Key="customer"></local:Customer>
+        <dishes:Pizza x:Key="pizza"></dishes:Pizza>
+        <dishes:Burger x:Key="burger"></dishes:Burger>
+        <dishes:Sandwich x:Key="sandwich"></dishes:Sandwich>
+        <Style TargetType="Label">
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Page.Resources>
+    <Grid Margin="0,0,10,0" Height="600" >
+        <StackPanel Orientation="Horizontal" Margin="0,-10,0,10">
+            <WrapPanel Width="250" Background="Gold" HorizontalAlignment="Left" Margin="0,10,10,436" >
+                <Grid Margin="10">
+                    <StackPanel DataContext="{StaticResource customer}">
+                        <Label HorizontalAlignment="Center" FontSize="16" Content="Customer Information :"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Name :" Width="100"/>
+                                <TextBox x:Name="Tb_Customer_Name"  Height="23" Width="100" BorderBrush="#00FFFFFF" TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Tb_Customer_Name}">
+                                    <TextBox.Text>
+                                        <Binding Path="Name" NotifyOnValidationError="True">
+                                            <Binding.ValidationRules>
+                                                <validators:AlphabetValidator/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Address:"/>
+                            <TextBox x:Name="Tb_Customer_Address" Width="100" Margin="55,5,0,7" Height="46" TextWrapping="Wrap" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Phone Number : "  HorizontalAlignment="Left" Width="100"  VerticalAlignment="Top"/>
+                            <TextBox x:Name="Tb_Customer_Phone" Height="23" Width="100" BorderBrush="#00FFFFFF" Margin="0,0,0,0" 
+                                     TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Tb_Customer_Phone}">
+                                <TextBox.Text>
+                                    <Binding Path="Phone" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <validators:PhoneValidator/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Background="Gold" Width="280" Margin="0,10,0,205">
+                <Grid Margin="10">
+                    <StackPanel>
+                        <Label Margin="10,0,0,10" Content="Order Details :"/>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="Pizza" DataContext="{StaticResource pizza}">
+                                <StackPanel>
+                                    <StackPanel Margin="10,5,5,6" Orientation="Horizontal">
+                                        <Label Content="Quantity :"/>
+                                        <TextBox Width="30" x:Name="Tb_Pizza_Quantity" Margin="10,0,0,0" TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Tb_Pizza_Quantity}">
+                                            <TextBox.Text>
+                                                <Binding Path="Quantity" NotifyOnValidationError="True">
+                                                    <Binding.ValidationRules>
+                                                        <validators:NumericValidator/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton x:Name="pizza1" Content="Small" Margin="5"/>
+                                        <RadioButton x:Name="pizza2" Content="Medium" Margin="5" IsChecked="True"/>
+                                        <RadioButton x:Name="pizza3" Content="Large" Margin="5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="Burger" DataContext="{StaticResource burger}">
+                                <StackPanel>
+                                    <StackPanel Margin="10,5,5,6" Orientation="Horizontal">
+                                        <Label Content="Quantity :"/>
+                                        <TextBox x:Name="Tb_Burger_Quantity" Width="30" Margin="10,0,0,0" TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Tb_Burger_Quantity}">
+                                            <TextBox.Text>
+                                                <Binding Path="Quantity" NotifyOnValidationError="True">
+                                                    <Binding.ValidationRules>
+                                                        <validators:NumericValidator/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton Content="Small" Margin="5"/>
+                                        <RadioButton Content="Medium" Margin="5" IsChecked="True"/>
+                                        <RadioButton Content="Large" Margin="5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="Sandwich" DataContext="{StaticResource sandwich}">
+                                <StackPanel>
+                                    <StackPanel Margin="10,5,5,6" Orientation="Horizontal">
+                                        <Label Content="Quantity :"/>
+                                        <TextBox x:Name="Tb_Sandwich_Quantity" Width="30" Margin="10,0,0,0" TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Tb_Sandwich_Quantity}">
+                                            <TextBox.Text>
+                                                <Binding Path="Quantity" NotifyOnValidationError="True">
+                                                    <Binding.ValidationRules>
+                                                        <validators:NumericValidator/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton Content="Small" Margin="5"/>
+                                        <RadioButton Content="Medium" Margin="5" IsChecked="True"/>
+                                        <RadioButton Content="Large" Margin="5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="Toppings">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox Content="Sausage" Margin="5"/>
+                                        <CheckBox Content="Pepperoni" Margin="5"/>
+                                        <CheckBox Content="Olives" Margin="5"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox Content="Anchovies" Margin="5"/>
+                                        <CheckBox Content="Onions" Margin="5"/>
+                                        <CheckBox Content="Extra Cheese" Margin="5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel Height="200" Width="250" Background="Gold" Margin="10,10,10,390">
+                <Grid Margin="10">
+                    <StackPanel>
+                        <Label HorizontalAlignment="Center" FontSize="14" Content="Payment Information :" Margin="10,0,0,10"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Payment Method :"/>
+                            <ComboBox IsEditable="False" Width="100" Margin="10,0,0,7" x:Name="selectPaymentMethod" SelectionChanged="onSelectionChanged" >
+                                <ComboBoxItem Content="Cash"/>
+                                <ComboBoxItem Content="Debit/Credit Card"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" x:Name="cardPanel">
+                            <Label Content="Credit Card # :"/>
+                            <TextBox Width="100" Margin="30,0,0,7" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" x:Name="expiryPanel">
+                            <Label Content="Expiration Date : "  HorizontalAlignment="Left" Width="100"  VerticalAlignment="Top"/>
+                            <Border x:Name="paymentBorder" BorderThickness="1" BorderBrush="Black" Height="25" Width="100" Margin="5,0,0,0">
+                                <TextBox x:Name="paymentTxt" Height="23" Width="100" BorderBrush="#00FFFFFF" Margin="0,0,0,0" 
+                                     TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=weightTxt}"/>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" x:Name="totalPanel">
+                            <Label Content="Total : "  HorizontalAlignment="Left" Width="100"  VerticalAlignment="Top"/>
+                            <Border x:Name="totalBorder" BorderThickness="1" BorderBrush="Black" Height="25" Width="100" Margin="5,0,0,0">
+                                <TextBox x:Name="totalTxt" Height="23" Width="100" BorderBrush="#00FFFFFF" Margin="0,0,0,0" 
+                                     TextWrapping="Wrap" 
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=weightTxt}"/>
+                            </Border>
+                        </StackPanel>
+                        <Button x:Name="submit" Content="Submit Order" Click="SubmitClick"/>
+                    </StackPanel>
+                </Grid>
+            </WrapPanel>
+
+        </StackPanel>
+    </Grid>
+
+</Page>
